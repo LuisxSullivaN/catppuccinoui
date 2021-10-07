@@ -1,0 +1,129 @@
+{
+  "version": 2,
+  "projects": {
+    "catppuccinoui": {
+      "root": "apps/catppuccinoui",
+      "sourceRoot": "apps/catppuccinoui/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/catppuccinoui",
+            "index": "apps/catppuccinoui/src/index.html",
+            "main": "apps/catppuccinoui/src/main.tsx",
+            "polyfills": "apps/catppuccinoui/src/polyfills.ts",
+            "tsConfig": "apps/catppuccinoui/tsconfig.app.json",
+            "assets": [
+              "apps/catppuccinoui/src/favicon.ico",
+              "apps/catppuccinoui/src/assets"
+            ],
+            "styles": ["apps/catppuccinoui/src/styles.css"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/catppuccinoui/src/environments/environment.ts",
+                  "with": "apps/catppuccinoui/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "catppuccinoui:build",
+            "hmr": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "catppuccinoui:build:production",
+              "hmr": false
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/catppuccinoui/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/catppuccinoui"],
+          "options": {
+            "jestConfig": "apps/catppuccinoui/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "catppuccinoui-e2e": {
+      "root": "apps/catppuccinoui-e2e",
+      "sourceRoot": "apps/catppuccinoui-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/catppuccinoui-e2e/cypress.json",
+            "devServerTarget": "catppuccinoui:serve",
+            "tsConfig": "apps/catppuccinoui-e2e/tsconfig.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "catppuccinoui:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/catppuccinoui-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/react"
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "css",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "css"
+      },
+      "library": {
+        "style": "css",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "catppuccinoui"
+}
